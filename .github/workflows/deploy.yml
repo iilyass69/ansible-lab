@@ -1,0 +1,43 @@
+name: DevOps CI-CD Pipeline - Ansible Patch Management
+
+# Le pipeline se déclenche dès qu'on fait un "push" sur la branche main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  devops_pipeline:
+    runs-on: ubuntu-latest # Le robot utilise un Ubuntu gratuit fourni par GitHub
+
+    steps:
+      # 1. Le robot récupère ton code Ansible depuis le dépôt Git
+      - name: 📁 Récupération du code (Checkout)
+        uses: actions/checkout@v4
+
+      # 2. Le robot installe Ansible pour pouvoir exécuter les commandes
+      - name: 🛠️ Installation d'Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      # 3. ÉTAPE DE LINT / CHECK : On vérifie la syntaxe du Playbook avant de faire quoi que ce soit
+      - name: 🔍 Étape 1 (CI) - Validation de la syntaxe
+        run: |
+          ansible-playbook patch.yml --syntax-check
+
+      # 4. On injecte de manière sécurisée ta clé privée cachée dans les secrets GitHub
+      - name: 🔑 Configuration sécurisée de la clé SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ANSIBLE_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 400 ~/.ssh/id_rsa
+
+      # 5. ÉTAPE DE TEST : On lance un test "à blanc" sur la VM Azure (mode simulation)
+      - name: 🧪 Étape 2 (CI) - Test à blanc (Check Mode)
+        run: |
+          ansible-playbook patch.yml --check
+
+      # 6. ÉTAPE DE DÉPLOIEMENT : Si tout est OK, on applique les vraies modifications
+      - name: 🚀 Étape 3 (CD) - Exécution réelle du Patch Management
+        run: |
+          ansible-playbook patch.yml
