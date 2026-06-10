@@ -1,0 +1,17 @@
+---
+- name: Patch Management - Mise à jour de la VM Azure
+  hosts: azure_vm
+  become: yes # L'équivalent de "sudo" (droits administrateur)
+  
+  tasks:
+    - name: Mettre à jour le cache des paquets (apt update)
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Mettre à jour tous les paquets du système (apt upgrade)
+      ansible.builtin.apt:
+        upgrade: dist
+
+    - name: Nettoyer les paquets inutiles (apt autoremove)
+      ansible.builtin.apt:
+        autoremove: yes
