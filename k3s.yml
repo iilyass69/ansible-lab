@@ -39,3 +39,9 @@
         cp /etc/rancher/k3s/k3s.yaml /home/azureuser/.kube/config
         chown -R azureuser:azureuser /home/azureuser/.kube
         chmod 600 /home/azureuser/.kube/config
+
+     - name: 📦 6. Déployer Nginx sur le cluster Kubernetes
+      ansible.builtin.shell: |
+        export KUBECONFIG=/home/azureuser/.kube/config
+        kubectl apply -f /home/azureuser/k8s/nginx-deployment.yml
+        kubectl apply -f /home/azureuser/k8s/nginx-service.yml
