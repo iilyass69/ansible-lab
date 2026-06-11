@@ -40,7 +40,7 @@
         chown -R azureuser:azureuser /home/azureuser/.kube
         chmod 600 /home/azureuser/.kube/config
 
-     - name: 📁 6. Créer le dossier k8s sur la VM Azure
+    - name: 📁 6. Créer le dossier k8s sur la VM Azure
       ansible.builtin.file:
         path: /home/azureuser/k8s
         state: directory
