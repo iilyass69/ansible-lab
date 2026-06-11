@@ -1,0 +1,32 @@
+---
+- name: Déploiement de la stack de supervision (Prometheus + Grafana)
+  hosts: azure_vm
+  become: yes
+
+  tasks:
+    - name: 📁 Créer le dossier Prometheus sur la VM
+      ansible.builtin.file:
+        path: /home/azureuser/prometheus
+        state: directory
+        mode: '0755'
+
+    - name: 📄 Copier le fichier de configuration Prometheus
+      ansible.builtin.copy:
+        src: monitoring/prometheus.yml
+        dest: /home/azureuser/prometheus/prometheus.yml
+
+    - name: 🧹 Nettoyer les anciens conteneurs si existants
+      ansible.builtin.shell: |
+        docker rm -f node_exporter prometheus grafana || true
+
+    - name: 📊 1. Lancer Node Exporter (Lecture des métriques CPU/RAM)
+      ansible.builtin.command:
+        cmd: docker run -d --name node_exporter --network host --restart unless-stopped prom/node-exporter
+
+    - name: 🗄️ 2. Lancer Prometheus (Base de données des métriques)
+      ansible.builtin.command:
+        cmd: docker run -d --name prometheus --network host --restart unless-stopped -v /home/azureuser/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+
+    - name: 📈 3. Lancer Grafana (Interface visuelle)
+      ansible.builtin.command:
+        cmd: docker run -d -p 3000:3000 --name grafana --restart unless-stopped grafana/grafana

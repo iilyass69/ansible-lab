@@ -50,3 +50,7 @@ jobs:
       - name: 🌐 Étape 5 (CD) - Déploiement du conteneur Web
         run: |
           ansible-playbook nginx.yml
+      # 9. ÉTAPE DE SUPERVISION : Prometheus et Grafana
+      - name: 👁️ Étape 6 (CD) - Déploiement de la Supervision
+        run: |
+          ansible-playbook monitoring.yml
