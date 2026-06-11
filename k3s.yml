@@ -1,0 +1,41 @@
+---
+- name: Migration vers Kubernetes (Nettoyage Docker et Installation K3s)
+  hosts: azure_vm
+  become: yes
+
+  tasks:
+    - name: 🛑 1. Arrêter les services Docker et retirer les conteneurs
+      ansible.builtin.shell: |
+        docker rm -f $(docker ps -aq) || true
+        systemctl stop docker || true
+        systemctl disable docker || true
+      ignore_errors: yes
+
+    - name: 🗑️ 2. Désinstaller Docker de la machine
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: absent
+        purge: yes
+
+    - name: 🧹 3. Supprimer les fichiers résiduels de Docker
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /var/lib/docker
+        - /etc/docker
+
+    - name: 🚀 4. Télécharger et installer K3s (Kubernetes allégé)
+      ansible.builtin.shell: curl -sfL https://get.k3s.io | sh -
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: ⚙️ 5. Donner les droits à l'utilisateur Azure pour utiliser kubectl
+      ansible.builtin.shell: |
+        mkdir -p /home/azureuser/.kube
+        cp /etc/rancher/k3s/k3s.yaml /home/azureuser/.kube/config
+        chown -R azureuser:azureuser /home/azureuser/.kube
+        chmod 600 /home/azureuser/.kube/config
