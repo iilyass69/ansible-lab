@@ -1,11 +1,25 @@
 ---
-- name: Lancement du conteneur Web Nginx
+- name: Lancement du conteneur Web Nginx personnalisé
   hosts: azure_vm
   become: yes
 
   tasks:
-    - name: Lancer le conteneur Nginx sur le port 80
+    - name: 📁 Créer le dossier du site web sur la VM
+      ansible.builtin.file:
+        path: /home/azureuser/website
+        state: directory
+        mode: '0755'
+
+    - name: 📄 Copier le fichier index.html sur la VM
+      ansible.builtin.copy:
+        src: website/index.html
+        dest: /home/azureuser/website/index.html
+
+    - name: 🗑️ Supprimer l'ancien conteneur Nginx (pour libérer le port 80)
       ansible.builtin.command:
-        cmd: docker run -d -p 80:80 --name mon-serveur-web --restart unless-stopped nginx
-      # Ignore l'erreur si le conteneur existe déjà (pour garder notre idempotence)
+        cmd: docker rm -f mon-serveur-web
       ignore_errors: yes
+
+    - name: 🐳 Lancer le nouveau conteneur avec le Volume monté (-v)
+      ansible.builtin.command:
+        cmd: docker run -d -p 80:80 --name mon-serveur-web --restart unless-stopped -v /home/azureuser/website:/usr/share/nginx/html:ro nginx

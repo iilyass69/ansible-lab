@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ilyas EL BOUSFI — BTS CIEL IR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────── */
+    :root {
+      --bg:       #0a0a0f;
+      --surface:  #13131a;
+      --border:   #1e1e2e;
+      --accent:   #4f8ef7;
+      --accent2:  #7c6af7;
+      --text:     #e2e2e8;
+      --muted:    #72728a;
+      --mono:     'Space Mono', monospace;
+      --sans:     'Space Grotesk', sans-serif;
+    }
+
+    /* ─── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV ────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: .85rem;
+      color: var(--accent);
+      letter-spacing: .12em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: .78rem;
+      padding: .45rem 1rem;
+      border: 1px solid var(--accent);
+      color: var(--accent) !important;
+      border-radius: 2px;
+      transition: background .2s, color .2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--bg) !important; }
+
+    /* ─── HERO ───────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: .75rem;
+      color: var(--accent);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title .accent { color: var(--accent); }
+    .hero-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 42ch;
+      margin-bottom: 2rem;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      font-family: var(--mono);
+      font-size: .8rem;
+      padding: .7rem 1.6rem;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 2px;
+      letter-spacing: .08em;
+      transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: .85; }
+    .btn-outline {
+      font-family: var(--mono);
+      font-size: .8rem;
+      padding: .7rem 1.6rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 2px;
+      letter-spacing: .08em;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline:hover { border-color: var(--text); color: var(--text); }
+
+    /* Hero terminal visual */
+    .hero-visual {
+      position: relative;
+    }
+    .terminal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      font-family: var(--mono);
+      font-size: .82rem;
+    }
+    .terminal-bar {
+      background: var(--border);
+      padding: .6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .terminal-title {
+      margin-left: .5rem;
+      color: var(--muted);
+      font-size: .72rem;
+    }
+    .terminal-body {
+      padding: 1.25rem 1.5rem;
+      line-height: 1.85;
+    }
+    .t-prompt { color: var(--accent); }
+    .t-cmd    { color: var(--text); }
+    .t-out    { color: var(--muted); }
+    .t-ok     { color: #28c840; }
+    .t-val    { color: var(--accent2); }
+    .cursor {
+      display: inline-block;
+      width: 8px; height: 1em;
+      background: var(--accent);
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ─── SECTION WRAPPER ────────────────────────── */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--accent);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      font-weight: 700;
+      letter-spacing: -.015em;
+      margin-bottom: 2.5rem;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 2rem;
+    }
+
+    /* ─── ABOUT ──────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: .97rem;
+    }
+    .about-text p strong { color: var(--text); }
+    .certs {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .cert-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .9rem 1.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color .2s;
+    }
+    .cert-item:hover { border-color: var(--accent); }
+    .cert-icon {
+      font-size: 1.3rem;
+      min-width: 2rem;
+      text-align: center;
+    }
+    .cert-name {
+      font-size: .875rem;
+      font-weight: 500;
+    }
+    .cert-sub {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: .1rem;
+    }
+
+    /* ─── PROJETS ────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .card-icon { font-size: 1.5rem; }
+    .card-tags {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: .65rem;
+      padding: .2rem .55rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+      letter-spacing: .05em;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .card-desc {
+      font-size: .875rem;
+      color: var(--muted);
+      flex: 1;
+    }
+    .card-link {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--accent);
+      letter-spacing: .08em;
+      margin-top: .5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      transition: gap .2s;
+    }
+    .card-link:hover { gap: .6rem; }
+
+    /* ─── STACK ──────────────────────────────────── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: .75rem;
+    }
+    .stack-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      padding: 1.25rem .75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: .8rem;
+      color: var(--muted);
+      transition: border-color .2s, color .2s;
+      text-align: center;
+    }
+    .stack-item:hover { border-color: var(--accent); color: var(--text); }
+    .stack-item .si { font-size: 1.5rem; }
+
+    /* ─── CONTACT ────────────────────────────────── */
+    .contact-inner {
+      max-width: 560px;
+    }
+    .contact-inner p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .9rem 1.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: .9rem;
+      transition: border-color .2s;
+    }
+    .contact-row:hover { border-color: var(--accent); }
+    .contact-row .icon { font-size: 1.1rem; min-width: 1.5rem; }
+    .contact-row .label { color: var(--muted); font-size: .78rem; font-family: var(--mono); margin-right: auto; }
+    .contact-row .val { font-size: .875rem; color: var(--text); }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── TIMELINE ───────────────────────────────── */
+    .timeline-wrapper {
+      position: relative;
+      margin-top: 2.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+    .timeline-track {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      min-width: 680px;
+      position: relative;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 28px;
+      right: 28px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+      z-index: 0;
+    }
+    .tl-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      margin-top: 21px;
+      flex-shrink: 0;
+      transition: background .2s, border-color .2s;
+      position: relative;
+      z-index: 2;
+    }
+    .tl-step:last-child .tl-dot {
+      background: var(--accent2);
+      border-color: var(--accent2);
+      box-shadow: 0 0 10px rgba(124,106,247,.45);
+    }
+    .tl-step:hover .tl-dot {
+      background: var(--accent);
+    }
+    .tl-content {
+      margin-top: .75rem;
+      text-align: center;
+      padding: 0 .5rem;
+    }
+    .tl-year {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--accent);
+      letter-spacing: .1em;
+      margin-bottom: .25rem;
+    }
+    .tl-label {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: .2rem;
+    }
+    .tl-sub {
+      font-size: .72rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── RÉSEAU SVG ─────────────────────────────── */
+    #network {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .network-frame {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      overflow: hidden;
+    }
+    .network-frame svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ─── SOFT SKILLS ────────────────────────────── */
+    #softskills {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.4rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: border-color .2s, transform .2s;
+    }
+    .skill-card:hover {
+      border-color: var(--accent2);
+      transform: translateY(-2px);
+    }
+    .skill-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+    .skill-name {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .25rem;
+    }
+    .skill-desc {
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      section { padding: 3.5rem 1.25rem; }
+      #network { padding: 3.5rem 1.25rem; }
+      #softskills { padding: 3.5rem 1.25rem; }
+      .timeline-track { min-width: 560px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .cursor { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">IEB_</span>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#network">Labo réseau</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#softskills">Soft skills</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" style="padding-top:7rem; padding-bottom:4rem; max-width:1100px; margin:0 auto;">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <p class="hero-tag">// BTS CIEL — Informatique & Réseaux</p>
+        <h1 class="hero-title">
+          Ilyas<br>
+          <span class="accent">EL BOUSFI</span>
+        </h1>
+        <p class="hero-desc">
+          Étudiant en systèmes, réseaux et cybersécurité. Je construis des infrastructures, j'automatise ce qui peut l'être, et j'apprends en cassant des choses dans mon labo.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary">Voir mes projets →</a>
+          <a href="#contact" class="btn-outline">Me contacter</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="dot dot-r"></div>
+            <div class="dot dot-y"></div>
+            <div class="dot dot-g"></div>
+            <span class="terminal-title">ilyas@labo:~</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="t-prompt">❯ </span><span class="t-cmd">whoami</span></div>
+            <div class="t-val">ilyas_elbousfi</div>
+            <br>
+            <div><span class="t-prompt">❯ </span><span class="t-cmd">cat profile.txt</span></div>
+            <div class="t-out">Formation  : BTS CIEL IR — Lyon</div>
+            <div class="t-out">Stage      : Kubiweb (Lyon, 2026)</div>
+            <div class="t-out">Cert       : AWS Cloud Foundations ✓</div>
+            <br>
+            <div><span class="t-prompt">❯ </span><span class="t-cmd">ping 8.8.8.8 -c 1</span></div>
+            <div class="t-ok">64 bytes from 8.8.8.8 — time=12ms</div>
+            <br>
+            <div><span class="t-prompt">❯ </span><span class="t-cmd">systemctl status labo</span></div>
+            <div class="t-ok">● Active: running (AD + GLPI + pfSense)</div>
+            <br>
+            <div><span class="t-prompt">❯ </span><span class="t-cmd">_ </span><span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">// 01 — à propos</p>
+      <h2 class="section-title">Qui suis-je ?</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>
+          Actuellement en <strong>BTS CIEL (Informatique et Réseaux)</strong> au Lycée Édouard Branly à Lyon, je suis passionné par l'infrastructure, les réseaux et l'administration systèmes.
+        </p>
+        <p>
+          Mon stage chez <strong>Kubiweb</strong> m'a permis de travailler sur des migrations d'hébergement (OVHcloud → Hostinger), de développer des scripts d'audit Python/Bash, et de gérer des configurations DNS en conditions réelles.
+        </p>
+        <p>
+          En dehors des cours, je maintiens un <strong>labo virtuel</strong> sous VirtualBox avec une infra complète : Active Directory, pfSense, GLPI, tunnels VPN IPsec — j'apprends en construisant, en cassant, et en réparant.
+        </p>
+        <p>
+          Permis B · Sainte-Foy-lès-Lyon · <strong>Disponible en alternance dès septembre 2026</strong>
+        </p>
+      </div>
+      <div class="certs">
+        <div class="cert-item">
+          <span class="cert-icon">☁️</span>
+          <div>
+            <div class="cert-name">AWS Cloud Foundations</div>
+            <div class="cert-sub">AWS Academy Graduate — Mars 2026</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <span class="cert-icon">🔗</span>
+          <div>
+            <div class="cert-name">CCNA — Introduction to Networks</div>
+            <div class="cert-sub">Cisco Networking Academy — En cours</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <span class="cert-icon">🎓</span>
+          <div>
+            <div class="cert-name">Bac STI2D — Mention AB</div>
+            <div class="cert-sub">Option SIN — 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE DE PARCOURS -->
+    <div class="reveal" style="margin-top:3.5rem;">
+      <p class="section-label" style="margin-bottom:.5rem;">// parcours</p>
+      <div class="timeline-wrapper">
+        <div class="timeline-track">
+
+          <div class="tl-step">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-year">2022</div>
+              <div class="tl-label">Bac STI2D</div>
+              <div class="tl-sub">Option SIN<br>Mention Assez Bien</div>
+            </div>
+          </div>
+
+          <div class="tl-step">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-year">Sept 2024</div>
+              <div class="tl-label">BUT Informatique</div>
+              <div class="tl-sub">IUT Lyon 1 – La Doua<br>1 an de formation</div>
+            </div>
+          </div>
+
+          <div class="tl-step">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-year">Sept 2025</div>
+              <div class="tl-label">BTS CIEL IR</div>
+              <div class="tl-sub">Lycée Édouard Branly<br>Lyon — en cours</div>
+            </div>
+          </div>
+
+
+
+          <div class="tl-step">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-year">Mai 2026 - juillet 2026</div>
+              <div class="tl-label">Stage Kubiweb</div>
+              <div class="tl-sub">Admin Sys & Réseaux<br>Lyon — en cours</div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJETS -->
+  <section id="projects">
+    <div class="reveal">
+      <p class="section-label">// 02 — projets</p>
+      <h2 class="section-title">Ce que j'ai construit</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="card reveal">
+        <div class="card-top">
+          <span class="card-icon">🌐</span>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Bash</span>
+            <span class="tag">CSV</span>
+          </div>
+        </div>
+        <div class="card-title">Script d'audit web</div>
+        <div class="card-desc">
+          Outil Python automatisant la détection de CMS, de versions WordPress, d'hébergeur et l'export CSV. Développé en conditions réelles lors de mon stage chez Kubiweb.
+        </div>
+        <span class="card-link">Stage Kubiweb →</span>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <span class="card-icon">🚚</span>
+          <div class="card-tags">
+            <span class="tag">FTP/SFTP</span>
+            <span class="tag">DNS</span>
+            <span class="tag">SSL</span>
+          </div>
+        </div>
+        <div class="card-title">Migration OVHcloud → Hostinger</div>
+        <div class="card-desc">
+          Procédure complète de migration de sites clients : transfert FTP, export/import phpMyAdmin, reconfiguration DNS et certificats SSL.
+        </div>
+        <span class="card-link">Stage Kubiweb →</span>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <span class="card-icon">🏗️</span>
+          <div class="card-tags">
+            <span class="tag">Windows Server</span>
+            <span class="tag">AD</span>
+            <span class="tag">VirtualBox</span>
+          </div>
+        </div>
+        <div class="card-title">Lab Active Directory</div>
+        <div class="card-desc">
+          Déploiement d'un domaine Active Directory complet (entreprise.lan), gestion des OU, GPO, comptes utilisateurs et droits d'accès sous VirtualBox.
+        </div>
+        <span class="card-link">Labo perso →</span>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <span class="card-icon">🎫</span>
+          <div class="card-tags">
+            <span class="tag">GLPI</span>
+            <span class="tag">LDAP</span>
+            <span class="tag">Debian</span>
+          </div>
+        </div>
+        <div class="card-title">Serveur GLPI + intégration LDAP</div>
+        <div class="card-desc">
+          Installation d'un serveur ITSM GLPI (pile LAMP, PHP 8.2, MariaDB) et liaison avec Active Directory via LDAP. Accès restreint par groupe de sécurité AD.
+        </div>
+        <span class="card-link">Labo perso →</span>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <span class="card-icon">🔒</span>
+          <div class="card-tags">
+            <span class="tag">pfSense</span>
+            <span class="tag">IPsec</span>
+            <span class="tag">VPN</span>
+          </div>
+        </div>
+        <div class="card-title">Tunnel VPN IPsec inter-sites</div>
+        <div class="card-desc">
+          Mise en place de tunnels VPN IPsec inter-sites sous pfSense dans un environnement réseau virtuel multi-segments (LAN, DMZ, WAN simulé).
+        </div>
+        <span class="card-link">Labo perso →</span>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <span class="card-icon">☁️</span>
+          <div class="card-tags">
+            <span class="tag">AWS</span>
+            <span class="tag">VPC</span>
+            <span class="tag">IAM</span>
+          </div>
+        </div>
+        <div class="card-title">Infrastructure AWS</div>
+        <div class="card-desc">
+          Création d'un VPC, déploiement d'instances EC2/RDS, configuration IAM, S3, EBS, Load Balancer et Auto Scaling dans le cadre de la certification AWS Cloud Foundations.
+        </div>
+        <span class="card-link">AWS Academy →</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SCHÉMA RÉSEAU LABO -->
+  <section id="network">
+    <div class="reveal">
+      <p class="section-label">// 03 — labo réseau</p>
+      <h2 class="section-title">Architecture du labo virtuel</h2>
+    </div>
+    <div class="network-frame reveal">
+      <svg viewBox="0 0 920 480" xmlns="http://www.w3.org/2000/svg" font-family="Space Mono, monospace">
+        <defs>
+          <marker id="mBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#4f8ef7"/></marker>
+          <marker id="mPurple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#7c6af7"/></marker>
+          <marker id="mOrange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#e8954a"/></marker>
+          <marker id="mGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#28c840"/></marker>
+          <filter id="fBlue"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="fSoft"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- ────────────────────────────────────────────────────────
+          LAYOUT PLAN  (all Y values from top)
+          Row 0 — Internet cloud         cy=52
+          Row 1 — pfSense boxes          y=100  h=72   bottom=172
+          Row 2 — LAN buses              y=200
+          Row 3 — Server boxes           y=218  h=90   bottom=308
+          Row 4 — Auth VPN line          y=345
+          Row 5 — Legend                 y=455
+
+          Columns (box centers):
+            Left bloc  (Siège)    :  cx=230   boxes at x=100
+            Right bloc (Agence)   :  cx=690   boxes at x=560
+
+            Inside Siège LAN:
+              WinServer  cx=155   x=50   w=200
+              Debian     cx=355   x=255  w=200
+
+            Inside Agence LAN:
+              PC Client  cx=690   x=560  w=260
+        ──────────────────────────────────────────────────────── -->
+
+        <!-- ═══ INTERNET CLOUD ═══ -->
+        <!-- Main cloud body -->
+        <ellipse cx="460" cy="44" rx="80" ry="28" fill="#0b0b18" stroke="#252538" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <!-- Puff left -->
+        <ellipse cx="410" cy="56" rx="40" ry="22" fill="#0b0b18" stroke="#252538" stroke-width="1"/>
+        <!-- Puff right -->
+        <ellipse cx="512" cy="58" rx="36" ry="20" fill="#0b0b18" stroke="#252538" stroke-width="1"/>
+        <!-- Icon + label -->
+        <text x="460" y="40" text-anchor="middle" font-size="16" fill="#4f8ef7">☁</text>
+        <text x="460" y="60" text-anchor="middle" font-size="8" fill="#4a4a66" letter-spacing="2">WAN — INTERNET SIMULÉ</text>
+
+        <!-- WAN → pfSense Siège (vertical drop) -->
+        <line x1="230" y1="75" x2="230" y2="100" stroke="#4f8ef7" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mBlue)" opacity=".55"/>
+        <!-- WAN → pfSense Agence (vertical drop) -->
+        <line x1="690" y1="75" x2="690" y2="100" stroke="#4f8ef7" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mBlue)" opacity=".55"/>
+
+        <!-- ═══ pfSense SIÈGE ═══  x=100 y=100 w=260 h=72 -->
+        <rect x="100" y="100" width="260" height="72" rx="5" fill="#0c0c1e" stroke="#4f8ef7" stroke-width="1.6" filter="url(#fBlue)"/>
+        <rect x="100" y="100" width="260" height="22" rx="5" fill="#131330"/>
+        <text x="230" y="116" text-anchor="middle" font-size="9" fill="#4f8ef7" letter-spacing="2">PFSENSE — SIÈGE</text>
+        <text x="116" y="140" font-size="9" fill="#6a6a88">Pare-feu / Routeur</text>
+        <text x="116" y="156" font-size="9" fill="#6a6a88">NAT · DHCP · IPsec</text>
+        <text x="327" y="154" font-size="19" fill="#4f8ef7">🛡</text>
+
+        <!-- ═══ pfSense AGENCE ═══  x=560 y=100 w=260 h=72 -->
+        <rect x="560" y="100" width="260" height="72" rx="5" fill="#0c0c1e" stroke="#4f8ef7" stroke-width="1.6" filter="url(#fBlue)"/>
+        <rect x="560" y="100" width="260" height="22" rx="5" fill="#131330"/>
+        <text x="690" y="116" text-anchor="middle" font-size="9" fill="#4f8ef7" letter-spacing="2">PFSENSE — AGENCE</text>
+        <text x="576" y="140" font-size="9" fill="#6a6a88">Pare-feu / Routeur</text>
+        <text x="576" y="156" font-size="9" fill="#6a6a88">Terminaison IPsec</text>
+        <text x="787" y="154" font-size="19" fill="#4f8ef7">🛡</text>
+
+        <!-- ═══ IPSEC VPN TUNNEL (between the two pfSense, row 1) ═══ -->
+        <!-- Gap between boxes: x=360 to x=560, center y=136 -->
+        <!-- Two horizontal dashed arrows (bidirectional) with clear spacing -->
+        <line x1="362" y1="130" x2="558" y2="130" stroke="#e8954a" stroke-width="1.8" stroke-dasharray="7,4" marker-end="url(#mOrange)" opacity=".9"/>
+        <line x1="558" y1="144" x2="362" y2="144" stroke="#e8954a" stroke-width="1.8" stroke-dasharray="7,4" marker-end="url(#mOrange)" opacity=".9"/>
+        <!-- Badge in the middle of the gap -->
+        <rect x="415" y="132" width="90" height="18" rx="3" fill="#180e04" stroke="#e8954a" stroke-width="1.2"/>
+        <text x="460" y="145" text-anchor="middle" font-size="8" fill="#e8954a" letter-spacing="1.5">IPSEC VPN</text>
+
+        <!-- ═══ LAN BUS — SIÈGE ═══  y=200, from x=50 to x=370 -->
+        <!-- pfSense down to bus -->
+        <line x1="230" y1="172" x2="230" y2="200" stroke="#4f8ef7" stroke-width="1.4" opacity=".4"/>
+        <!-- Bus line -->
+        <line x1="50" y1="200" x2="370" y2="200" stroke="#1c1c38" stroke-width="3" stroke-linecap="round"/>
+        <text x="210" y="196" text-anchor="middle" font-size="7" fill="#3a3a55" letter-spacing="2">LAN — RÉSEAU INTERNE</text>
+
+        <!-- ═══ LAN BUS — AGENCE ═══  y=200, from x=550 to x=870 -->
+        <line x1="690" y1="172" x2="690" y2="200" stroke="#4f8ef7" stroke-width="1.4" opacity=".4"/>
+        <line x1="550" y1="200" x2="870" y2="200" stroke="#1c1c38" stroke-width="3" stroke-linecap="round"/>
+        <text x="710" y="196" text-anchor="middle" font-size="7" fill="#3a3a55" letter-spacing="2">LAN — RÉSEAU AGENCE</text>
+
+        <!-- ═══ WINDOWS SERVER ═══  x=50 y=218 w=190 h=90 -->
+        <line x1="145" y1="200" x2="145" y2="218" stroke="#7c6af7" stroke-width="1.2" marker-end="url(#mPurple)" opacity=".65"/>
+        <rect x="50" y="218" width="190" height="90" rx="5" fill="#0c0c1e" stroke="#7c6af7" stroke-width="1.4" filter="url(#fSoft)"/>
+        <rect x="50" y="218" width="190" height="22" rx="5" fill="#121228"/>
+        <text x="145" y="234" text-anchor="middle" font-size="9" fill="#7c6af7" letter-spacing="2">WINDOWS SERVER</text>
+        <text x="64" y="258" font-size="8.5" fill="#6a6a88">Windows Srv 2022</text>
+        <text x="64" y="274" font-size="8.5" fill="#7c6af7">AD DS · DNS</text>
+        <text x="64" y="290" font-size="8" fill="#4a4a66">entreprise.lan</text>
+        <text x="214" y="280" font-size="18" fill="#7c6af7">🏛</text>
+
+        <!-- ═══ DEBIAN / GLPI + ZABBIX ═══  x=262 y=218 w=190 h=90 -->
+        <line x1="357" y1="200" x2="357" y2="218" stroke="#28c840" stroke-width="1.2" marker-end="url(#mGreen)" opacity=".65"/>
+        <rect x="262" y="218" width="190" height="90" rx="5" fill="#0c0c1e" stroke="#28c840" stroke-width="1.4" filter="url(#fSoft)"/>
+        <rect x="262" y="218" width="190" height="22" rx="5" fill="#0b160b"/>
+        <text x="357" y="234" text-anchor="middle" font-size="9" fill="#28c840" letter-spacing="2">DEBIAN LINUX</text>
+        <text x="276" y="258" font-size="8.5" fill="#6a6a88">GLPI — ITSM</text>
+        <text x="276" y="274" font-size="8" fill="#4a6a4a">LDAP ← AD</text>
+        <text x="276" y="290" font-size="8" fill="#4a6a4a">Zabbix — Supervision</text>
+        <text x="426" y="280" font-size="18" fill="#28c840">🐧</text>
+
+        <!-- LDAP arrow: WinServer → Debian (horizontal, mid-height of boxes) -->
+        <!-- Goes right from WinServer edge x=240, arrives at Debian left edge x=262, at y=268 -->
+        <line x1="240" y1="262" x2="262" y2="262" stroke="#7c6af7" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#mPurple)" opacity=".75"/>
+        <text x="251" y="256" text-anchor="middle" font-size="7" fill="#7c6af7">LDAP</text>
+
+        <!-- Zabbix SNMP arrow: Debian → WinServer (lower row) -->
+        <line x1="262" y1="280" x2="240" y2="280" stroke="#28c840" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#mGreen)" opacity=".5"/>
+        <text x="251" y="276" text-anchor="middle" font-size="6.5" fill="#28c840">SNMP</text>
+
+        <!-- ═══ PC CLIENT ═══  x=580 y=218 w=220 h=90 -->
+        <line x1="690" y1="200" x2="690" y2="218" stroke="#4f8ef7" stroke-width="1.2" marker-end="url(#mBlue)" opacity=".65"/>
+        <rect x="580" y="218" width="220" height="90" rx="5" fill="#0c0c1e" stroke="#4f8ef7" stroke-width="1.4" filter="url(#fSoft)"/>
+        <rect x="580" y="218" width="220" height="22" rx="5" fill="#121228"/>
+        <text x="690" y="234" text-anchor="middle" font-size="9" fill="#4f8ef7" letter-spacing="2">PC CLIENT</text>
+        <text x="596" y="258" font-size="8.5" fill="#6a6a88">Windows 11</text>
+        <text x="596" y="274" font-size="8.5" fill="#4f8ef7">Joint au domaine</text>
+        <text x="596" y="290" font-size="8" fill="#4a4a66">entreprise.lan</text>
+        <text x="772" y="280" font-size="18" fill="#4f8ef7">💻</text>
+
+        <!-- ═══ AUTH DOMAINE VIA VPN ═══
+             PC Client bottom (690,308) → down to y=345 → left to x=145 → up to WinServer bottom (145,308)
+        ═══ -->
+        <!-- PC Client down -->
+        <line x1="690" y1="308" x2="690" y2="345" stroke="#7c6af7" stroke-width="1" stroke-dasharray="5,3" opacity=".55"/>
+        <!-- Horizontal left -->
+        <line x1="690" y1="345" x2="145" y2="345" stroke="#7c6af7" stroke-width="1" stroke-dasharray="5,3" opacity=".55"/>
+        <!-- WinServer up -->
+        <line x1="145" y1="345" x2="145" y2="308" stroke="#7c6af7" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#mPurple)" opacity=".55"/>
+        <!-- Label badge centered on horizontal line -->
+        <rect x="368" y="336" width="144" height="18" rx="3" fill="#0c0c1e" stroke="#7c6af7" stroke-width="1"/>
+        <text x="440" y="349" text-anchor="middle" font-size="8" fill="#7c6af7" letter-spacing="1">AUTH DOMAINE VIA VPN</text>
+
+        <!-- ═══ LEGEND ═══ -->
+        <line x1="30" y1="455" x2="56" y2="455" stroke="#4f8ef7" stroke-width="1.2" stroke-dasharray="4,2" opacity=".7" marker-end="url(#mBlue)"/>
+        <text x="62" y="459" font-size="8" fill="#4a4a62">Flux LAN</text>
+        <line x1="140" y1="455" x2="166" y2="455" stroke="#7c6af7" stroke-width="1.2" stroke-dasharray="4,2" opacity=".7" marker-end="url(#mPurple)"/>
+        <text x="172" y="459" font-size="8" fill="#4a4a62">Auth / LDAP</text>
+        <line x1="270" y1="455" x2="296" y2="455" stroke="#e8954a" stroke-width="1.5" stroke-dasharray="5,3" opacity=".85" marker-end="url(#mOrange)"/>
+        <text x="302" y="459" font-size="8" fill="#4a4a62">Tunnel IPsec</text>
+        <line x1="405" y1="455" x2="431" y2="455" stroke="#28c840" stroke-width="1.2" stroke-dasharray="4,2" opacity=".7" marker-end="url(#mGreen)"/>
+        <text x="437" y="459" font-size="8" fill="#4a4a62">Supervision</text>
+        <text x="630" y="459" font-size="8" fill="#32323e" letter-spacing="1">VirtualBox — Réseau interne</text>
+
+      </svg>
+    </div>
+  </section>
+
+
+  <hr class="divider" />
+  <section id="stack">
+    <div class="reveal">
+      <p class="section-label">// 04 — stack</p>
+      <h2 class="section-title">Outils & technologies</h2>
+    </div>
+    <div class="stack-grid reveal">
+      <div class="stack-item"><span class="si">🐧</span>Linux / Debian</div>
+      <div class="stack-item"><span class="si">🪟</span>Windows Server</div>
+      <div class="stack-item"><span class="si">📁</span>Active Directory</div>
+      <div class="stack-item"><span class="si">🔥</span>pfSense</div>
+      <div class="stack-item"><span class="si">📦</span>VirtualBox</div>
+      <div class="stack-item"><span class="si">🐍</span>Python</div>
+      <div class="stack-item"><span class="si">⌨️</span>Bash</div>
+      <div class="stack-item"><span class="si">🗄️</span>SQL / MariaDB</div>
+      <div class="stack-item"><span class="si">☁️</span>AWS</div>
+      <div class="stack-item"><span class="si">🎫</span>GLPI</div>
+      <div class="stack-item"><span class="si">📡</span>Wireshark</div>
+      <div class="stack-item"><span class="si">🌐</span>Packet Tracer</div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SOFT SKILLS -->
+  <section id="softskills">
+    <div class="reveal">
+      <p class="section-label">// 05 — soft skills</p>
+      <h2 class="section-title">Comment je travaille</h2>
+    </div>
+    <div class="skills-grid reveal">
+
+      <div class="skill-card">
+        <span class="skill-icon">🔍</span>
+        <div>
+          <div class="skill-name">Curiosité technique</div>
+          <div class="skill-desc">Je creuse jusqu'à comprendre. Quand quelque chose casse dans le labo, je documente avant de réparer.</div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <span class="skill-icon">🤝</span>
+        <div>
+          <div class="skill-name">Sens du service</div>
+          <div class="skill-desc">Un ticket fermé, c'est un utilisateur débloqué. J'explique sans jargon et je vérifie que ça marche.</div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <span class="skill-icon">📐</span>
+        <div>
+          <div class="skill-name">Rigueur & méthode</div>
+          <div class="skill-desc">Chaque config est versionée, chaque procédure rédigée. Je ne déploie pas sans avoir testé en environnement isolé.</div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <span class="skill-icon">🔐</span>
+        <div>
+          <div class="skill-name">Discrétion absolue</div>
+          <div class="skill-desc">Accès aux SI, données utilisateurs, mots de passe : je traite l'information sensible avec le même soin que l'infrastructure.</div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <span class="skill-icon">⚡</span>
+        <div>
+          <div class="skill-name">Réactivité</div>
+          <div class="skill-desc">En stage comme au labo, quand un service tombe, je priorise, j'isole et je remédie. Pas de panique, juste du diagnostic.</div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <span class="skill-icon">🌱</span>
+        <div>
+          <div class="skill-name">Apprentissage continu</div>
+          <div class="skill-desc">CCNA en cours, Azure en exploration, Terraform dans le pipeline. J'apprends le week-end ce que je veux maîtriser le lundi.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <p class="section-label">// 06 — contact</p>
+      <h2 class="section-title">Me contacter</h2>
+    </div>
+    <div class="contact-inner reveal">
+      <p>Je suis disponible en alternance à partir de septembre 2026 (24 mois). N'hésitez pas à me contacter pour toute opportunité en systèmes, réseaux ou cybersécurité.</p>
+      <div class="contact-links">
+        <a href="mailto:ilyaselbousfi@outlook.com" class="contact-row">
+          <span class="icon">✉️</span>
+          <span class="label">EMAIL</span>
+          <span class="val">ilyaselbousfi@outlook.com</span>
+        </a>
+
+        <div class="contact-row">
+          <span class="icon">📍</span>
+          <span class="label">LOCALISATION</span>
+          <span class="val">Sainte-Foy-lès-Lyon (69)</span>
+        </div>
+        <div class="contact-row">
+          <span class="icon">🚗</span>
+          <span class="label">MOBILITÉ</span>
+          <span class="val">Permis B — Véhicule personnel</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>ILYAS EL BOUSFI © 2026 — BTS CIEL IR · LYCÉE ÉDOUARD BRANLY · LYON</p>
+  </footer>
+
+  <!-- SCROLL REVEAL JS -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
