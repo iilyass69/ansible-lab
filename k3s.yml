@@ -40,7 +40,18 @@
         chown -R azureuser:azureuser /home/azureuser/.kube
         chmod 600 /home/azureuser/.kube/config
 
-     - name: 📦 6. Déployer Nginx sur le cluster Kubernetes
+     - name: 📁 6. Créer le dossier k8s sur la VM Azure
+      ansible.builtin.file:
+        path: /home/azureuser/k8s
+        state: directory
+        mode: '0755'
+
+    - name: 📄 7. Copier les fichiers YAML Kubernetes vers la VM
+      ansible.builtin.copy:
+        src: k8s/
+        dest: /home/azureuser/k8s/
+
+    - name: 📦 8. Appliquer les configurations sur le cluster Kubernetes
       ansible.builtin.shell: |
         export KUBECONFIG=/home/azureuser/.kube/config
         kubectl apply -f /home/azureuser/k8s/nginx-deployment.yml
