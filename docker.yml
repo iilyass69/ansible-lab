@@ -1,0 +1,23 @@
+---
+- name: Déploiement du moteur de conteneurs Docker
+  hosts: azure_vm
+  become: yes
+
+  tasks:
+    - name: Installer le paquet Docker standard d'Ubuntu
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: S'assurer que le service Docker est démarré et s'active au démarrage
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Ajouter l'utilisateur azureuser au groupe docker pour éviter d'utiliser sudo
+      ansible.builtin.user:
+        name: azureuser
+        groups: docker
+        append: yes

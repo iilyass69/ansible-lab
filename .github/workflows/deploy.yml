@@ -41,3 +41,7 @@ jobs:
       - name: 🚀 Étape 3 (CD) - Exécution réelle du Patch Management
         run: |
           ansible-playbook patch.yml
+      # 7. ÉTAPE D'INSTALLATION : Déploiement de Docker
+      - name: 🐳 Étape 4 (CD) - Installation de Docker
+        run: |
+          ansible-playbook docker.yml
