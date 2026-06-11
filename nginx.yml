@@ -1,0 +1,11 @@
+---
+- name: Lancement du conteneur Web Nginx
+  hosts: azure_vm
+  become: yes
+
+  tasks:
+    - name: Lancer le conteneur Nginx sur le port 80
+      ansible.builtin.command:
+        cmd: docker run -d -p 80:80 --name mon-serveur-web --restart unless-stopped nginx
+      # Ignore l'erreur si le conteneur existe déjà (pour garder notre idempotence)
+      ignore_errors: yes

@@ -45,3 +45,8 @@ jobs:
       - name: 🐳 Étape 4 (CD) - Installation de Docker
         run: |
           ansible-playbook docker.yml
+
+      # 8. ÉTAPE DE DÉPLOIEMENT APPLICATIF : Lancer Nginx
+      - name: 🌐 Étape 5 (CD) - Déploiement du conteneur Web
+        run: |
+          ansible-playbook nginx.yml
